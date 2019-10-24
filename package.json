@@ -1,0 +1,45 @@
+{
+	"name": "fitbit-views",
+	"version": "1.0.0",
+	"description": "Manage Views and navigation in Fitbit apps",
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"scripts": {
+		"build": "tsc",
+		"prettier": "prettier **/*.ts !**/*.d.ts **/*.json **/*.md example/**/*.js example/**/*.jsx",
+		"check-code": "npm run prettier -- -l",
+		"fix-code": "npm run prettier -- --write",
+		"test": "jest",
+		"prepublishOnly": "npm run check-code && npm test && npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SergioMorchon/fitbit-views.git"
+	},
+	"keywords": [
+		"fitbit",
+		"fitbitdev",
+		"views",
+		"navigation",
+		"ui"
+	],
+	"author": "Sergio Morchón Poveda",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SergioMorchon/fitbit-views/issues"
+	},
+	"homepage": "https://github.com/SergioMorchon/fitbit-views#readme",
+	"devDependencies": {
+		"@babel/core": "^7.6.0",
+		"@babel/preset-env": "^7.6.0",
+		"@babel/preset-typescript": "^7.6.0",
+		"@types/jest": "^24.0.18",
+		"babel-jest": "^24.9.0",
+		"fitbit-sdk-types": "^4.1.7",
+		"jest": "^24.9.0",
+		"prettier": "^1.18.2",
+		"typescript": "^3.6.3"
+	}
+}
