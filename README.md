@@ -77,4 +77,4 @@ This enable developers to create and pack full views (both UI and functionality)
 
 ## Example
 
-See a working app example at the [example/app path](./example/app/index.ts).
+See a working app example at the [example/app path](./example/app/index.js).
