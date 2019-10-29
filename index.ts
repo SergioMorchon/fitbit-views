@@ -64,7 +64,6 @@ const load = (viewId: string, params: any) => {
 	}
 
 	delete buttons.back;
-	// @ts-ignore
 	document.replaceSync(
 		setupOptions && setupOptions.getViewFilename
 			? setupOptions.getViewFilename(viewId)
