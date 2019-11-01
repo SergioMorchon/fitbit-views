@@ -29,6 +29,6 @@
 		"debug": "fitbit"
 	},
 	"dependencies": {
-		"fitbit-views": "^1.0.0"
+		"fitbit-views": "file:../fitbit-views-1.0.0.tgz"
 	}
 }

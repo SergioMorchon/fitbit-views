@@ -7,7 +7,7 @@ import document from 'document';
 type Dispose = () => void;
 type ViewModel = (params?: any) => Dispose | void;
 type ViewsMap = {
-	[viewId: string]: ViewModel;
+	[viewId: string]: () => Promise<{ readonly default: ViewModel }>;
 };
 type SetupOptions = {
 	getViewFilename?: (viewId: string) => string;
@@ -58,31 +58,34 @@ const load = (viewId: string, params: any) => {
 		currentDispose();
 	}
 
-	const viewModel = setupViews[viewId];
-	if (!viewModel) {
+	const resolveViewModel = setupViews[viewId];
+	if (!resolveViewModel) {
 		throw new Error(`Unknown view: ${viewId}`);
 	}
 
 	delete buttons.back;
-	document.replaceSync(
-		setupOptions && setupOptions.getViewFilename
-			? setupOptions.getViewFilename(viewId)
-			: `./resources/${viewId}.gui`,
-	);
-	document.addEventListener('keypress', e => {
-		if (e.key === 'back') {
-			if (buttons.back) {
-				buttons.back();
-			} else {
-				back();
-			}
 
-			if (stack.length) {
-				e.preventDefault();
+	resolveViewModel().then(m => {
+		document.replaceSync(
+			setupOptions && setupOptions.getViewFilename
+				? setupOptions.getViewFilename(viewId)
+				: `./resources/${viewId}.gui`,
+		);
+		document.addEventListener('keypress', e => {
+			if (e.key === 'back') {
+				if (buttons.back) {
+					buttons.back();
+				} else {
+					back();
+				}
+
+				if (stack.length) {
+					e.preventDefault();
+				}
 			}
-		}
+		});
+
+		currentDispose = m.default(params);
+		display.poke();
 	});
-
-	currentDispose = viewModel(params);
-	display.poke();
 };
