@@ -4,9 +4,9 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"devDependencies": {
-		"@fitbit/sdk": "file:../../fitbit-sdk-toolchain/fitbit-sdk-4.0.0-pre.0.tgz",
-		"@fitbit/sdk-cli": "^1.6.3",
-		"fitbit-sdk-types": "^4.1.6"
+		"@fitbit/sdk": "^4.0.1",
+		"@fitbit/sdk-cli": "^1.7.0",
+		"fitbit-sdk-types": "^4.2.0"
 	},
 	"fitbit": {
 		"appUUID": "592ca6f0-e66e-4a91-830e-98102787ffb5",
@@ -29,7 +29,6 @@
 		"debug": "fitbit"
 	},
 	"dependencies": {
-		"@fitbit/sdk-build-targets": "file:../../fitbit-sdk-build-targets-v1.3.1.tgz",
-		"fitbit-views": "file:../fitbit-views-1.0.0.tgz"
+		"fitbit-views": "^1.0.0"
 	}
 }
