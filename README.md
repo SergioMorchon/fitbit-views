@@ -1,6 +1,7 @@
 # Fitbit Views
 
-![CI Status](https://github.com/SergioMorchon/fitbit-views/workflows/CI/badge.svg)
+[![npm version](https://badge.fury.io/js/fitbit-views.svg)](https://www.npmjs.com/package/fitbit-views)
+[![CI Status](https://github.com/SergioMorchon/fitbit-views/workflows/CI/badge.svg)](https://github.com/SergioMorchon/fitbit-views/actions?query=workflow%3ACI)
 
 Build rich Fitbit apps with ease.
 This module will take care of:
