@@ -64,28 +64,26 @@ const load = (viewId: string, params: any) => {
 	}
 
 	delete buttons.back;
-
-	resolveViewModel().then(m => {
-		document.replaceSync(
-			setupOptions && setupOptions.getViewFilename
-				? setupOptions.getViewFilename(viewId)
-				: `./resources/${viewId}.gui`,
-		);
-		document.addEventListener('keypress', e => {
-			if (e.key === 'back') {
-				if (buttons.back) {
-					buttons.back();
-				} else {
-					back();
-				}
-
-				if (stack.length) {
-					e.preventDefault();
-				}
+	document.replaceSync(
+		setupOptions && setupOptions.getViewFilename
+			? setupOptions.getViewFilename(viewId)
+			: `./resources/${viewId}.gui`,
+	);
+	document.addEventListener('keypress', e => {
+		if (e.key === 'back') {
+			if (buttons.back) {
+				buttons.back();
+			} else {
+				back();
 			}
-		});
 
+			if (stack.length) {
+				e.preventDefault();
+			}
+		}
+	});
+	display.poke();
+	resolveViewModel().then(m => {
 		currentDispose = m.default(params);
-		display.poke();
 	});
 };
