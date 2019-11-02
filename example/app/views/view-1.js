@@ -1,5 +1,5 @@
 import document from 'document';
-import { next } from 'fitbit-views';
+import { next } from './';
 
 // Receives a count parameter
 export default count => {

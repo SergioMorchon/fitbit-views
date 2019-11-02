@@ -1,5 +1,5 @@
 import document from 'document';
-import { next } from 'fitbit-views';
+import { next } from './';
 
 export default () => {
 	document.getElementById('next-button').onactivate = () => {

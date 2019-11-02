@@ -1,5 +1,5 @@
 import document from 'document';
-import { buttons, back } from 'fitbit-views';
+import { buttons, back } from './';
 
 export default count => {
 	const update = () => {
