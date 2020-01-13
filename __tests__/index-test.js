@@ -98,8 +98,20 @@ describe('navigation', () => {
 	test('next throws for unknown view', () => {
 		setup({});
 		expect(() => {
-			next('v1');
-		}).toThrowError(/^Unknown view: v1$/);
+			next('nope');
+		}).toThrowError(/^Unknown view: nope$/);
+	});
+
+	test('does not call dispose if navigates to unknown view', () => {
+		const dispose = jest.fn();
+		const v1 = jest.fn(() => dispose);
+		setup({ v1 });
+		next('v1');
+		expect(v1).toHaveBeenCalled();
+		expect(() => {
+			next('nope');
+		}).toThrowError(/^Unknown view: nope$/);
+		expect(dispose).not.toHaveBeenCalled();
 	});
 
 	test('back if the stack is empty does not load any view', () => {

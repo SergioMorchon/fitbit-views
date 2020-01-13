@@ -54,13 +54,13 @@ export const back = (params?: any) => {
 };
 
 const load = (viewId: string, params: any) => {
-	if (currentDispose) {
-		currentDispose();
-	}
-
 	const viewModel = setupViews[viewId];
 	if (!viewModel) {
 		throw new Error(`Unknown view: ${viewId}`);
+	}
+
+	if (currentDispose) {
+		currentDispose();
 	}
 
 	delete buttons.back;
@@ -71,12 +71,7 @@ const load = (viewId: string, params: any) => {
 	);
 	document.addEventListener('keypress', e => {
 		if (e.key === 'back') {
-			if (buttons.back) {
-				buttons.back();
-			} else {
-				back();
-			}
-
+			(buttons.back || back)();
 			if (stack.length) {
 				e.preventDefault();
 			}
