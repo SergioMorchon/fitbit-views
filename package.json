@@ -32,14 +32,14 @@
 	},
 	"homepage": "https://github.com/SergioMorchon/fitbit-views#readme",
 	"devDependencies": {
-		"@babel/core": "^7.8.0",
-		"@babel/preset-env": "^7.8.2",
-		"@babel/preset-typescript": "^7.8.0",
-		"@types/jest": "^24.0.25",
-		"babel-jest": "^24.9.0",
+		"@babel/core": "^7.8.3",
+		"@babel/preset-env": "^7.8.3",
+		"@babel/preset-typescript": "^7.8.3",
+		"@types/jest": "^24.9.1",
+		"babel-jest": "^25.1.0",
 		"fitbit-sdk-types": "^4.3.2",
-		"jest": "^24.9.0",
+		"jest": "^25.1.0",
 		"prettier": "^1.19.1",
-		"typescript": "^3.7.4"
+		"typescript": "^3.7.5"
 	}
 }
