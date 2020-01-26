@@ -1,5 +1,25 @@
-import { setup, next, back, buttons } from '../index.ts';
+import {
+	setup,
+	next as syncNext,
+	back as syncBack,
+	buttons,
+} from '../index.ts';
 import document from 'document';
+
+const nextTick = () =>
+	new Promise(resolve => {
+		setTimeout(resolve, 0);
+	});
+
+const next = async (...args) => {
+	syncNext(...args);
+	await nextTick();
+};
+
+const back = async (...args) => {
+	syncBack(...args);
+	await nextTick();
+};
 
 describe('setup', () => {
 	test('does not call the view creators', () => {
@@ -10,19 +30,19 @@ describe('setup', () => {
 });
 
 describe('view file name', () => {
-	test('by default resolves to the app resources path', () => {
+	test('by default resolves to the app resources path', async () => {
 		const replaceSync = jest.fn();
 		document.replaceSync = replaceSync;
 
 		setup({
 			v1: jest.fn(),
 		});
-		next('v1');
+		await next('v1');
 
 		expect(replaceSync).toHaveBeenCalledWith('./resources/v1.gui');
 	});
 
-	test('can be customized through setup', () => {
+	test('can be customized through setup', async () => {
 		const replaceSync = jest.fn();
 		document.replaceSync = replaceSync;
 
@@ -36,7 +56,7 @@ describe('view file name', () => {
 				getViewFilename,
 			},
 		);
-		next('v1');
+		await next('v1');
 
 		expect(getViewFilename).toHaveBeenCalledWith('v1');
 		expect(replaceSync).toHaveBeenCalledWith('fiew-filename: v1');
@@ -44,31 +64,31 @@ describe('view file name', () => {
 });
 
 describe('navigation', () => {
-	test('next with params', () => {
+	test('next with params', async () => {
 		const v1 = jest.fn();
 		setup({ v1 });
 		const params = {};
-		next('v1', params);
+		await next('v1', params);
 
 		expect(v1).toHaveBeenCalledWith(params);
 	});
 
-	test('next and back', () => {
+	test('next and back', async () => {
 		const v1 = jest.fn();
 		const v2 = jest.fn();
 		const replaceSync = jest.fn();
 		document.replaceSync = replaceSync;
 
 		setup({ v1, v2 });
-		next('v1');
+		await next('v1');
 		expect(replaceSync).lastCalledWith('./resources/v1.gui');
-		next('v2');
+		await next('v2');
 		expect(replaceSync).lastCalledWith('./resources/v2.gui');
-		back();
+		await back();
 		expect(replaceSync).lastCalledWith('./resources/v1.gui');
 	});
 
-	test('calls to view dispose before navigating', () => {
+	test('calls to view dispose before navigating', async () => {
 		const dispose = jest.fn();
 		const v1 = jest.fn(() => dispose);
 		const v2 = jest.fn();
@@ -76,63 +96,63 @@ describe('navigation', () => {
 		document.replaceSync = replaceSync;
 
 		setup({ v1, v2 });
-		next('v1');
+		await next('v1');
 		expect(dispose).not.toHaveBeenCalled();
-		next('v2');
+		await next('v2');
 		expect(dispose).toHaveBeenCalledTimes(1);
 	});
 
-	test('back with params', () => {
+	test('back with params', async () => {
 		const v1 = jest.fn();
 		const v2 = jest.fn();
 		setup({ v1, v2 });
-		next('v1');
+		await next('v1');
 		expect(v1).toHaveBeenLastCalledWith(undefined);
-		next('v2');
+		await next('v2');
 		const params = {};
-		back(params);
+		await back(params);
 
 		expect(v1).toHaveBeenLastCalledWith(params);
 	});
 
-	test('next throws for unknown view', () => {
+	test('next throws for unknown view', async () => {
 		setup({});
 		expect(() => {
-			next('nope');
+			syncNext('nope');
 		}).toThrowError(/^Unknown view: nope$/);
 	});
 
-	test('does not call dispose if navigates to unknown view', () => {
+	test('does not call dispose if navigates to unknown view', async () => {
 		const dispose = jest.fn();
 		const v1 = jest.fn(() => dispose);
 		setup({ v1 });
-		next('v1');
+		await next('v1');
 		expect(v1).toHaveBeenCalled();
 		expect(() => {
-			next('nope');
+			syncNext('nope');
 		}).toThrowError(/^Unknown view: nope$/);
 		expect(dispose).not.toHaveBeenCalled();
 	});
 
-	test('back if the stack is empty does not load any view', () => {
+	test('back if the stack is empty does not load any view', async () => {
 		const replaceSync = jest.fn();
 		document.replaceSync = replaceSync;
 
 		setup({});
-		back();
+		await back();
 		expect(replaceSync).not.toHaveBeenCalled();
 	});
 });
 
 describe('hardware buttons', () => {
-	test('listens for keypress within the view document', () => {
+	test('listens for keypress within the view document', async () => {
 		const addEventListener = jest.fn();
 		document.addEventListener = addEventListener;
 
 		setup({
 			v1: jest.fn(),
 		});
-		next('v1');
+		await next('v1');
 
 		const { calls } = addEventListener.mock;
 		expect(calls.length).toBe(1);
@@ -141,7 +161,7 @@ describe('hardware buttons', () => {
 		expect(typeof eventCallback).toBe('function');
 	});
 
-	test('prevents the default action for the back key press', () => {
+	test('prevents the default action for the back key press', async () => {
 		const callbackMap = {};
 		const addEventListener = jest.fn((eventName, callback) => {
 			callbackMap[eventName] = callback;
@@ -156,7 +176,7 @@ describe('hardware buttons', () => {
 				buttons.back = backHandler;
 			},
 		});
-		next('v1');
+		await next('v1');
 
 		expect(addEventListener).toBeCalled();
 		callbackMap['keypress']({

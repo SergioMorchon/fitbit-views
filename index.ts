@@ -78,6 +78,8 @@ const load = (viewId: string, params: any) => {
 		}
 	});
 
-	currentDispose = viewModel(params);
+	setTimeout(() => {
+		currentDispose = viewModel(params);
+	}, 0);
 	display.poke();
 };
