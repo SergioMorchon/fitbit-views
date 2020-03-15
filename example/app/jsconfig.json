@@ -1,8 +1,0 @@
-{
-	"extends": "../tsconfig.json",
-	"compilerOptions": {
-		"checkJs": true,
-		"noImplicitAny": false
-	},
-	"include": ["../node_modules/fitbit-sdk-types/types/device", "**/*.js"]
-}

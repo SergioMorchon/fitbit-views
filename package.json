@@ -8,8 +8,8 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"prettier": "prettier **/*.ts !**/*.d.ts **/*.json **/*.md example/**/*.js example/**/*.jsx",
-		"check-code": "npm run prettier -- -l",
+		"prettier": "prettier **/*.ts !**/*.d.ts **/*.json **/*.md -l",
+		"check-code": "npm run prettier",
 		"fix-code": "npm run prettier -- --write",
 		"test": "jest",
 		"prepublishOnly": "npm run check-code && npm test && npm run build"
@@ -32,12 +32,12 @@
 	},
 	"homepage": "https://github.com/SergioMorchon/fitbit-views#readme",
 	"devDependencies": {
-		"@babel/core": "^7.8.6",
-		"@babel/preset-env": "^7.8.6",
+		"@babel/core": "^7.8.7",
+		"@babel/preset-env": "^7.8.7",
 		"@babel/preset-typescript": "^7.8.3",
-		"@types/jest": "^25.1.3",
+		"@types/jest": "^25.1.4",
 		"babel-jest": "^25.1.0",
-		"fitbit-sdk-types": "^4.3.3",
+		"fitbit-sdk-types": "^4.3.5",
 		"jest": "^25.1.0",
 		"prettier": "^1.19.1",
 		"typescript": "^3.8.3"

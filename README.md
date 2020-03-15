@@ -75,7 +75,3 @@ In that case, just return a callback at the end of your view function, and it wi
 
 You can also take a look at the API in [the code](./index.ts). There you'll find also how to create fully dynamic views, including the GUI content.
 This enable developers to create and pack full views (both UI and functionality).
-
-## Example
-
-See a working app example at the [example/app path](./example/app/index.js).

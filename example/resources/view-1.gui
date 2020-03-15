@@ -1,8 +1,0 @@
-<svg>
-  <textarea id="message" text-length="49" />
-  <use id="next-button" href="#combo-button-lower-right" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="btn_combo_next_p.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="btn_combo_next_press_p.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
-</svg>
