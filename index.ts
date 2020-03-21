@@ -56,7 +56,7 @@ export const back = (params?: any) => {
 const load = (viewId: string, params: any) => {
 	const viewModel = setupViews[viewId];
 	if (!viewModel) {
-		throw new Error(`Unknown view: ${viewId}`);
+		throw new RangeError(`Unknown view "${viewId}"`);
 	}
 
 	if (currentDispose) {

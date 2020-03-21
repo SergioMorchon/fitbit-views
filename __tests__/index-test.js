@@ -119,7 +119,7 @@ describe('navigation', () => {
 		setup({});
 		expect(() => {
 			syncNext('nope');
-		}).toThrowError(/^Unknown view: nope$/);
+		}).toThrow(new RangeError('Unknown view "nope"'));
 	});
 
 	test('does not call dispose if navigates to unknown view', async () => {
@@ -130,7 +130,7 @@ describe('navigation', () => {
 		expect(v1).toHaveBeenCalled();
 		expect(() => {
 			syncNext('nope');
-		}).toThrowError(/^Unknown view: nope$/);
+		}).toThrow(new RangeError('Unknown view "nope"'));
 		expect(dispose).not.toHaveBeenCalled();
 	});
 
