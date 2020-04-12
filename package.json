@@ -38,8 +38,14 @@
 		"@types/jest": "^25.1.4",
 		"babel-jest": "^25.1.0",
 		"fitbit-sdk-types": "^4.3.5",
+		"husky": "^4.2.5",
 		"jest": "^25.1.0",
 		"prettier": "^1.19.1",
 		"typescript": "^3.8.3"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run fix-code"
+		}
 	}
 }
