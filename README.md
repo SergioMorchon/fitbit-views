@@ -67,7 +67,25 @@ You get the idea!
 
 - `setup`: initialize your views.
 - `next`: navigate forwards. You can also pass a parameter.
-- `back`: navigate backwards. You can also pass a parameter.
+- `back`: navigate backwards. You can also pass a parameter.`
+- `buttons`:
+
+  - `back`: manually handle the back action, avoiding the _default_ back action. This allows to manually control whether to go back or not.
+
+    ```typescript
+    import document from 'document';
+    import { buttons, back } from 'fitbit-views';
+
+    export default () => {
+    	document.getElementById('my-button').onactivate = () => {
+    		if (someCondition) {
+    			back();
+    		}
+
+    		// else, nothing happens: no navigation
+    	};
+    };
+    ```
 
 Your view functions will be called with the passed parameter (if any).
 Bear in mind that your view may be using extra resources that must be disposed before navigating to another view.
