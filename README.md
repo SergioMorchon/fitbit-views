@@ -72,7 +72,7 @@ You get the idea!
 
   - `back`: manually handle the back action, avoiding the _default_ back action. This allows to manually control whether to go back or not.
 
-    ```typescript
+    ```javascript
     import document from 'document';
     import { buttons, back } from 'fitbit-views';
 
@@ -93,3 +93,32 @@ In that case, just return a callback at the end of your view function, and it wi
 
 You can also take a look at the API in [the code](./index.ts). There you'll find also how to create fully dynamic views, including the GUI content.
 This enable developers to create and pack full views (both UI and functionality).
+
+## Example
+
+### Passing parameters
+
+Main navigation functions are:
+
+- `next(viewId, params)`
+- `back(params)`
+
+You can use `params` to pass _anything_ you want. In this example we will pass the _source_ view name:
+
+**a.js**
+
+```javascript
+export default ({ from }) => {
+	console.log(from); // undefined the first time, and 'b' when coming back from b.js view
+	next('b', { from: 'a' });
+};
+```
+
+**b.js**
+
+```javascript
+export default ({from}) => {
+  console.log(from);// 'a'
+  back({from: 'b'});
+});
+```
