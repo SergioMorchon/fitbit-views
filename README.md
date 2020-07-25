@@ -73,11 +73,10 @@ You get the idea!
   - `back`: manually handle the back action, avoiding the _default_ back action. This allows to manually control whether to go back or not.
 
     ```javascript
-    import document from 'document';
     import { buttons, back } from 'fitbit-views';
 
     export default () => {
-    	document.getElementById('my-button').onactivate = () => {
+    	buttons.back = () => {
     		if (someCondition) {
     			back();
     		}
